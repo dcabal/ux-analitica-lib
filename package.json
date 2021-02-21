@@ -1,0 +1,29 @@
+{
+  "name": "ux-analitica-lib",
+  "version": "1.0.0",
+  "description": "Biblioteca para la recolección de datos de usabilidad. Forma parte del TFM del Máster en Ingeniería Web de la Universidad de Oviedo.",
+  "main": "index.js",
+  "scripts": {
+    "build": "rollup -c rollup.config.prod.js",
+    "build:dev": "rollup -c rollup.config.dev.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dcabal/ux-analitica-lib.git"
+  },
+  "keywords": [
+    "UX",
+    "analysis"
+  ],
+  "author": "Daniel Cabal Fernández",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dcabal/ux-analitica-lib/issues"
+  },
+  "homepage": "https://github.com/dcabal/ux-analitica-lib#readme",
+  "devDependencies": {
+    "rollup": "^2.39.0",
+    "rollup-plugin-terser": "^7.0.2"
+  }
+}
