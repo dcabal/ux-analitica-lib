@@ -2,13 +2,27 @@ import { clickableInputs, selectableInputs, writableInputs } from '../constants/
 import * as TAG from '../constants/tags';
 import { DATA_ATTR } from '../constants/data-attributes';
 
-export default class DomHandler {
+export default class PageInfo {
    
-    domElements = {
+    _domElements = {
         clickable: [],
         selectable: [],
         writable: []
-    };               // Array con los elementos interactivos del DOM.
+    };                          // Array con los elementos interactivos del DOM.
+
+    _uxaToken = null;           // Token del usuario.
+    _currentPath = null;        // Path de la página actual.
+    _currentHtml = null;        // Html completo de la página.
+    _screenSize = null;         // Resolución de pantalla.
+    _time = 0;                  // Tiempo de permanencia en la página.
+
+    constructor() {
+        this._time = Date.now();
+        this._uxaToken = document.currentScript.getAttribute('uxa');
+        this._currentPath = window.location.pathname;
+        this._currentHtml = document.getElementsByTagName('body')[0].innerHTML;
+        this._screenSize = { width: window.innerWidth, height: window.innerHeight };
+    }
     
     /**
      * Obtiene los elementos interactivos del DOM para posteriormente inyectar
@@ -20,17 +34,23 @@ export default class DomHandler {
     }
 
     /**
+     * Calcula el tiempo total que el usuario permanece en la página.
+     */
+    setTime() {
+        this._time = Date.now() - this._time;
+    }
+
+    /**
      * Obtiene los elementos interactivos del DOM.
      */
     _getInteractiveElements() {
-        const buttons = document.getElementsByTagName('button');
-        const links = document.getElementsByTagName('a');
-        const selects = document.getElementsByTagName('select');
-        const textareas = document.getElementsByTagName('textarea');
-        const inputs = document.getElementsByTagName('input');
-
-        const interactiveElements = { buttons, links, selects, textareas, inputs };
-        this.domElements = this._classifyInteractiveElements(interactiveElements);
+        this._domElements = this._classifyInteractiveElements({
+            buttons: document.getElementsByTagName('button'),
+            links: document.getElementsByTagName('a'),
+            selects: document.getElementsByTagName('select'),
+            textareas: document.getElementsByTagName('textarea'),
+            inputs: document.getElementsByTagName('input')
+        });
     }
 
     /**
@@ -40,7 +60,7 @@ export default class DomHandler {
      * @returns {Object} clickable, selectable, writable.
      */
     _classifyInteractiveElements(elements) {
-        let { clickable, selectable, writable } = this.domElements;
+        let { clickable, selectable, writable } = this._domElements;
         const inputs = this._classifyInputs(elements.inputs);
 
         clickable = [...clickable, ...elements.buttons, ...elements.links, ...inputs.clickable];
@@ -94,7 +114,7 @@ export default class DomHandler {
             }
         };
 
-        for (const [key, val] of Object.entries(this.domElements)) {
+        for (const [key, val] of Object.entries(this._domElements)) {
             const prefix = TAG[String(key).toUpperCase()];
 
             for (const element of val) {
@@ -123,6 +143,5 @@ export default class DomHandler {
                 }
             }
         }
-
     }
 }
