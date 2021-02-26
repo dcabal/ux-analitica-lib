@@ -1,13 +1,10 @@
 export default class Tracker {
     
     _mouseTracking = [];             // Coordenadas x e y del movimiento del ratón.
-    _totalScrollUp = 0;              // Scroll total hacia arriba.
-    _totalScrollDown = 0;            // Scroll total hacia abajo.
     _totalKeyPresses = 0;            // Pulsaciones totales de teclado.
     _totalClicks = 0;                // Clicks totales en el documento.
 
     _currentMouseMovement = 0;      // Movimiento del ratón antes de interactuar con un elemento.
-    _currentScroll = 0;             
     _currentTabPresses = 0;         // Pulsaciones de la tecla 'tab' antes de interactuar con un elemento.
 
     _usedElements = [];             // Elementos sobre los que el usuario interactúa.
@@ -20,14 +17,6 @@ export default class Tracker {
     trackMouse(ev) {
         this._currentMouseMovement++;
         this._mouseTracking.push({x: ev.x, y: ev.y});
-    }
-
-    /**
-     * Registra el movimiento de scroll.
-     * @param {Event} ev Evento registrado.
-     */
-    trackScroll(ev) {
-        console.log('scrollevent', ev);
     }
 
     /**
