@@ -4,24 +4,24 @@ import { DATA_ATTR } from '../constants/data-attributes';
 
 export default class PageInfo {
    
-    _domElements = {
+    domElements = {
         clickable: [],
         selectable: [],
         writable: []
     };                          // Array con los elementos interactivos del DOM.
 
-    _uxaToken = null;           // Token del usuario.
-    _currentPath = null;        // Path de la página actual.
-    _currentHtml = null;        // Html completo de la página.
-    _screenSize = null;         // Resolución de pantalla.
-    _time = 0;                  // Tiempo de permanencia en la página.
+    uxaToken = null;           // Token del usuario.
+    currentPath = null;        // Path de la página actual.
+    currentHtml = null;        // Html completo de la página.
+    screenSize = null;         // Resolución de pantalla.
+    time = 0;                  // Tiempo de permanencia en la página.
 
-    constructor() {
-        this._time = Date.now();
-        this._uxaToken = document.currentScript.getAttribute('uxa');
-        this._currentPath = window.location.pathname;
-        this._currentHtml = document.getElementsByTagName('body')[0].innerHTML;
-        this._screenSize = { width: window.innerWidth, height: window.innerHeight };
+    constructor(uxaToken) {
+        this.time = Date.now();
+        this.uxaToken = uxaToken;
+        this.currentPath = window.location.pathname;
+        this.currentHtml = document.getElementsByTagName('body')[0].innerHTML;
+        this.screenSize = { width: window.innerWidth, height: window.innerHeight };
     }
     
     /**
@@ -37,14 +37,27 @@ export default class PageInfo {
      * Calcula el tiempo total que el usuario permanece en la página.
      */
     setTime() {
-        this._time = Date.now() - this._time;
+        this.time = Date.now() - this.time;
+    }
+
+    /**
+     * Devuelve los datos generales registrados.
+     */
+    getPageInfo() {
+        return {
+            uxaToken,
+            currentPath,
+            currentHtml,
+            screenSize,
+            time
+        };
     }
 
     /**
      * Obtiene los elementos interactivos del DOM.
      */
     _getInteractiveElements() {
-        this._domElements = this._classifyInteractiveElements({
+        this.domElements = this._classifyInteractiveElements({
             buttons: document.getElementsByTagName('button'),
             links: document.getElementsByTagName('a'),
             selects: document.getElementsByTagName('select'),
@@ -60,7 +73,7 @@ export default class PageInfo {
      * @returns {Object} clickable, selectable, writable.
      */
     _classifyInteractiveElements(elements) {
-        let { clickable, selectable, writable } = this._domElements;
+        let { clickable, selectable, writable } = this.domElements;
         const inputs = this._classifyInputs(elements.inputs);
 
         clickable = [...clickable, ...elements.buttons, ...elements.links, ...inputs.clickable];
@@ -114,7 +127,7 @@ export default class PageInfo {
             }
         };
 
-        for (const [key, val] of Object.entries(this._domElements)) {
+        for (const [key, val] of Object.entries(this.domElements)) {
             const prefix = TAG[String(key).toUpperCase()];
 
             for (const element of val) {
