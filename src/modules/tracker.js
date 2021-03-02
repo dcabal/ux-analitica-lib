@@ -26,6 +26,7 @@ export default class Tracker {
      * @param {Event} ev Evento registrado.
      */
     trackKeys(ev) {
+        this.totalKeyPresses++;
         
         /* Tabulación */
         if (ev.keyCode === 9) {
@@ -38,13 +39,13 @@ export default class Tracker {
                     ev.keyCode === 32) {
             this.usedElements.push({
                 trackedElement: ev.target?.dataset?.uxa,
-                element: ev.target,
+                html: ev.target?.outerHTML,
                 mouseMovementBefore: null,
                 tabPressesBefore: this.currentTabPresses
             });
+            this.currentMouseMovement = 0;
+            this.currentTabPresses = 0;
         }
-        this.currentMouseMovement = 0;
-        this.currentTabPresses = 0;
     }
 
     /**
@@ -55,10 +56,11 @@ export default class Tracker {
     trackClick(ev) {
         this.usedElements.push({
             trackedElement: ev.target?.dataset?.uxa,
-            element: ev.target,
+            html: ev.target?.outerHTML,
             mouseMovementBefore: this.currentMouseMovement,
             tabPressesBefore: null
         });
+        this.totalClicks++;
         this.currentMouseMovement = 0;
         this.currentTabPresses = 0;
     }

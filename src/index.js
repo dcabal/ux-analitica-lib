@@ -13,8 +13,8 @@ function init() {
 
     checkUxaToken(token)
     .then(_ => {
-        pageInfo = new PageInfo();
-        tracker = new Tracker(token);
+        pageInfo = new PageInfo(token);
+        tracker = new Tracker();
         pageInfo.setCustomIdentifiers();
         initEventListeners();
     })
@@ -38,6 +38,7 @@ function initEventListeners() {
     for (const link of links) {
         link.addEventListener('click', ev => {
             pageInfo.setTime();
+            console.log(mapData(pageInfo.getPageInfo(), tracker.getTrackedData()))
             ApiService.post(USER_DATA, JSON.stringify(mapData(pageInfo.getPageInfo(), tracker.getTrackedData())))
         })
     }
