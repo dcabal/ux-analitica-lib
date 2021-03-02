@@ -45,11 +45,11 @@ export default class PageInfo {
      */
     getPageInfo() {
         return {
-            uxaToken,
-            currentPath,
-            currentHtml,
-            screenSize,
-            time
+            uxaToken: this.uxaToken,
+            currentPath: this.currentPath,
+            currentHtml: this.currentHtml,
+            screenSize: this.screenSize,
+            time: this.time
         };
     }
 

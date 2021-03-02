@@ -68,10 +68,10 @@ export default class Tracker {
      */
     getTrackedData() {
         return {
-            mouseTracking,
-            totalKeyPresses,
-            totalClicks,
-            usedElements
+            mouseTracking: this.mouseTracking,
+            totalKeyPresses: this.totalKeyPresses,
+            totalClicks: this.totalClicks,
+            usedElements: this.usedElements
         }
     }
 }
