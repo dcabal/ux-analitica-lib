@@ -1,20 +1,17 @@
-import PageInfo from './modules/page-info';
-import Tracker from './modules/tracker';
+import pageInfo from './modules/page-info';
+import tracker from './modules/tracker';
 import ApiService from './modules/api-service';
 import { OWNER, USER_DATA } from './constants/api';
 import { mapData } from './util/util';
 
-let pageInfo, tracker;
 init();
-
 
 function init() {
     const token = document.currentScript.dataset?.uxa;
 
     checkUxaToken(token)
     .then(_ => {
-        pageInfo = new PageInfo(token);
-        tracker = new Tracker();
+        pageInfo.setup(token);
         pageInfo.setCustomIdentifiers();
         initEventListeners();
     })

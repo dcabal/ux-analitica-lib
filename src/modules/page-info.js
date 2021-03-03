@@ -2,7 +2,7 @@ import { clickableInputs, selectableInputs, writableInputs } from '../constants/
 import * as TAG from '../constants/tags';
 import { DATA_ATTR } from '../constants/data-attributes';
 
-export default class PageInfo {
+class PageInfo {
    
     domElements = {
         clickable: [],
@@ -16,7 +16,11 @@ export default class PageInfo {
     screenSize = null;         // Resolución de pantalla.
     time = 0;                  // Tiempo de permanencia en la página.
 
-    constructor(uxaToken) {
+    /**
+     * Guarda los datos iniciales de la visita.
+     * @param {String} uxaToken Token identificativo 
+     */
+    setup(uxaToken) {
         this.time = Date.now();
         this.uxaToken = uxaToken;
         this.currentPath = window.location.pathname;
@@ -158,3 +162,6 @@ export default class PageInfo {
         }
     }
 }
+
+let pageInfo;
+export default pageInfo = new PageInfo();

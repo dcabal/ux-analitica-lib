@@ -1,4 +1,4 @@
-export default class Tracker {
+class Tracker {
     
     mouseTracking = [];             // Coordenadas x e y del movimiento del ratón.
     totalKeyPresses = 0;            // Pulsaciones totales de teclado.
@@ -77,3 +77,6 @@ export default class Tracker {
         }
     }
 }
+
+let tracker;
+export default tracker = new Tracker();
