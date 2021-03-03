@@ -16,8 +16,8 @@ Ejecutar el comando `npm run build:dev` para generar los ficheros de desarrollo.
 Ejecutar el comando `npm run build` para generar el fichero de producción. Crea un único fichero js en el directorio `dist` minificado para su uso en producción.
 
 ## Uso de la biblioteca
-Una vez realizada la construcción incluir el fichero generado en el directorio `dist` mediante una etiqueta `<script>`. Se debe añadir el atributo `defer` para que el script no se ejecute antes de que se cargue el DOM:
+Una vez realizada la construcción incluir el fichero generado en el directorio `dist` mediante una etiqueta `<script>`. Se debe añadir el atributo `defer` para que el script no se ejecute antes de que se cargue el DOM. Se debe incluir también el token de identificación que se generará en el lado cliente:
 
 ```html
-<script defer src="path/to/ux-analitica-lib.js"></script>
+<script defer src="path/to/ux-analitica-lib.js" data-uxa="token"></script>
 ```
