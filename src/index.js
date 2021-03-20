@@ -1,7 +1,7 @@
 import pageInfo from './modules/page-info';
 import tracker from './modules/tracker';
 import ApiService from './modules/api-service';
-import { OWNER, USER_DATA } from './constants/api';
+import { SITE, USER_DATA } from './constants/api';
 import { mapData } from './util/util';
 
 init();
@@ -20,7 +20,7 @@ function init() {
 
 function checkUxaToken(token) {
     const host = window.location.host;
-    return ApiService.get(OWNER, { token, host });
+    return ApiService.get(SITE, { token, host });
 }
 
 function initEventListeners() {
