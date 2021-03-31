@@ -15,7 +15,7 @@ function init() {
         pageInfo.setCustomIdentifiers();
         initEventListeners();
     })
-    .catch(error => console.error(error?.error));
+    .catch(error => console.error(error));
 }
 
 function checkUxaToken(token) {

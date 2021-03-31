@@ -12,7 +12,7 @@ export default class ApiService {
         const res = await fetch(url, { headers });
 
         if (res.ok)
-            return res.json();
+            return res.text();
         else
             throw { error: { status: res.status, message: res.statusText } };
     }
