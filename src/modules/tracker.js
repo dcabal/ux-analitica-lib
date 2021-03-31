@@ -40,7 +40,7 @@ class Tracker {
             this.usedElements.push({
                 trackedElement: ev.target?.dataset?.uxa,
                 html: ev.target?.outerHTML,
-                mouseMovementBefore: null,
+                mouseMovementBefore: 0,
                 tabPressesBefore: this.currentTabPresses
             });
             this.currentMouseMovement = 0;
@@ -58,7 +58,7 @@ class Tracker {
             trackedElement: ev.target?.dataset?.uxa,
             html: ev.target?.outerHTML,
             mouseMovementBefore: this.currentMouseMovement,
-            tabPressesBefore: null
+            tabPressesBefore: 0
         });
         this.totalClicks++;
         this.currentMouseMovement = 0;
