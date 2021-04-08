@@ -4,10 +4,11 @@ class Tracker {
     totalKeyPresses = 0;            // Pulsaciones totales de teclado.
     totalClicks = 0;                // Clicks totales en el documento.
 
-    currentMouseMovement = 0;      // Movimiento del ratón antes de interactuar con un elemento.
-    currentTabPresses = 0;         // Pulsaciones de la tecla 'tab' antes de interactuar con un elemento.
+    currentMouseMovement = 0;       // Movimiento del ratón antes de interactuar con un elemento.
+    currentTabPresses = 0;          // Pulsaciones de la tecla 'tab' antes de interactuar con un elemento.
 
-    usedElements = [];             // Elementos sobre los que el usuario interactúa.
+    usedElements = [];              // Elementos sobre los que el usuario interactúa.
+    currentTrackedElement = null;   // Elemento sobre el que se está interacturando.
 
 
     /**
@@ -37,14 +38,17 @@ class Tracker {
                     (ev.keyCode >= 96 && ev.keyCode <= 105) ||
                     (ev.keyCode >= 65 && ev.keyCode <= 90) ||
                     ev.keyCode === 32) {
-            this.usedElements.push({
-                trackedElement: ev.target?.dataset?.uxa,
-                html: ev.target?.outerHTML,
-                mouseMovementBefore: 0,
-                tabPressesBefore: this.currentTabPresses
-            });
-            this.currentMouseMovement = 0;
-            this.currentTabPresses = 0;
+            if (this.currentTrackedElement !== ev.target?.dataset?.uxa) {
+                this.currentTrackedElement = ev.target?.dataset?.uxa;
+                this.usedElements.push({
+                    trackedElement: ev.target?.dataset?.uxa,
+                    html: ev.target?.outerHTML,
+                    mouseMovementBefore: 0,
+                    tabPressesBefore: this.currentTabPresses
+                });
+                this.currentMouseMovement = 0;
+                this.currentTabPresses = 0;
+            }
         }
     }
 
